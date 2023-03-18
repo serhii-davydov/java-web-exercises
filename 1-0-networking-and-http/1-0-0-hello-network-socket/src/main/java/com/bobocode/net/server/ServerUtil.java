@@ -12,7 +12,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import org.joda.time.chrono.BuddhistChronology;
 
 /**
  * Util class for a {@link MessageBoardServer}. It provides all necessary method for network communication. Using these
@@ -70,12 +69,9 @@ public class ServerUtil {
      */
     @SneakyThrows
     public static String readMessageFromSocket(Socket socket) {
-        try(var reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-            return reader.readLine();
-        }
-        catch (IOException e) {
-            throw new IOException(e);
-        }
+        InputStream inputStream = socket.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        return reader.readLine();
 //        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ServerUtilTest
     }
 

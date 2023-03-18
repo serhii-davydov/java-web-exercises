@@ -10,6 +10,7 @@ import java.net.Socket;
  * A util class that implements all the logic required for building {@link MessageBoardClient}.
  */
 public class ClientUtil {
+
     private ClientUtil() {
     }
 
@@ -24,7 +25,8 @@ public class ClientUtil {
      */
     @SneakyThrows
     public static Socket openSocket(String host, int port) {
-        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ClientUtilTest
+        return new Socket(host, port);
+//        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ClientUtilTest
     }
 
     /**
@@ -62,6 +64,10 @@ public class ClientUtil {
      */
     @SneakyThrows
     public static void writeToSocket(String message, Socket socket) {
-        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ClientUtilTest
+        OutputStream outputStream = socket.getOutputStream();
+        Writer writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+        writer.write(message);
+        writer.flush();
+//        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ClientUtilTest
     }
 }
