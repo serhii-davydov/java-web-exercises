@@ -1,6 +1,7 @@
 package com.bobocode.net.server;
 
 import com.bobocode.util.ExerciseNotCompletedException;
+import java.io.IOException;
 import lombok.SneakyThrows;
 
 import java.io.BufferedReader;
@@ -11,6 +12,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import org.joda.time.chrono.BuddhistChronology;
 
 /**
  * Util class for a {@link MessageBoardServer}. It provides all necessary method for network communication. Using these
@@ -41,7 +43,8 @@ public class ServerUtil {
      */
     @SneakyThrows
     public static ServerSocket createServerSocket(int port) {
-        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ServerUtilTest
+        return new ServerSocket(port);
+//        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ServerUtilTest
     }
 
     /**
@@ -52,7 +55,8 @@ public class ServerUtil {
      */
     @SneakyThrows
     public static Socket acceptClientSocket(ServerSocket serverSocket) {
-        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ServerUtilTest
+        return serverSocket.accept();
+//        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ServerUtilTest
     }
 
     /**
@@ -66,7 +70,13 @@ public class ServerUtil {
      */
     @SneakyThrows
     public static String readMessageFromSocket(Socket socket) {
-        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ServerUtilTest
+        try(var reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+            return reader.readLine();
+        }
+        catch (IOException e) {
+            throw new IOException(e);
+        }
+//        throw new ExerciseNotCompletedException(); // todo: implement according to javadoc and verify by ServerUtilTest
     }
 
     /**
