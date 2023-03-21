@@ -12,7 +12,8 @@ public class DateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter writer = response.getWriter();
-        writer.println(LocalDate.now());
+        PrintWriter out = response.getWriter();
+        LocalDate date = LocalDate.now();
+        out.println(date);
     }
 }
